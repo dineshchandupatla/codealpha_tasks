@@ -1,59 +1,121 @@
-function translateText(){
+const chatBox = document.getElementById("chatBox");
 
-let input=document.getElementById("inputText").value.toLowerCase().trim();
+const responses = {
 
-let output="Translation not available.";
+    "hello":"👋 Hello! Welcome. How can I help you today?",
 
-const dictionary={
+    "hi":"👋 Hi! Ask me anything about the internship.",
 
-"hello":"नमस्ते",
+    "hey":"😊 Hello! How can I assist you?",
 
-"good morning":"सुप्रभात",
+    "what is codealpha":"CodeAlpha is an organization that offers internship opportunities to help students improve their practical skills through real-world projects.",
 
-"good night":"शुभ रात्रि",
+    "what is this internship":"This internship helps students gain hands-on experience by completing practical projects.",
 
-"how are you":"आप कैसे हैं?",
+    "how do i apply":"Visit the official CodeAlpha website and fill out the internship application form.",
 
-"i am fine":"मैं ठीक हूँ",
+    "how to apply":"Visit the official website and submit the application form.",
 
-"what is your name":"आपका नाम क्या है?",
+    "is this internship free":"Yes, many CodeAlpha internships are free to join.",
 
-"my name is dinesh":"मेरा नाम दिनेश है",
+    "is there a certificate":"✅ Yes! You can receive a certificate after successfully completing the required tasks.",
 
-"thank you":"धन्यवाद",
+    "certificate":"Yes, certificates are provided after successful completion.",
 
-"welcome":"स्वागत है",
+    "internship duration":"The internship usually lasts about one month.",
 
-"yes":"हाँ",
+    "duration":"The internship duration is generally one month.",
 
-"no":"नहीं",
+    "what projects should i submit":"Submit the projects assigned in your internship task list before the deadline.",
 
-"please":"कृपया",
+    "projects":"Complete and submit all the assigned projects.",
 
-"sorry":"माफ़ कीजिए",
+    "can beginners join":"✅ Yes! Beginners are welcome.",
 
-"i love india":"मुझे भारत से प्यार है",
+    "skills required":"Basic knowledge of programming and willingness to learn are enough.",
 
-"computer":"कंप्यूटर",
+    "frontend":"Frontend development uses HTML, CSS and JavaScript.",
 
-"college":"कॉलेज",
+    "html":"HTML is used to create the structure of a webpage.",
 
-"student":"छात्र",
+    "css":"CSS is used for styling webpages.",
 
-"teacher":"शिक्षक",
+    "javascript":"JavaScript makes webpages interactive.",
 
-"language":"भाषा",
+    "python":"Python is a beginner-friendly programming language.",
 
-"translate":"अनुवाद",
+    "java":"Java is a popular object-oriented programming language.",
 
-"goodbye":"अलविदा"
+    "c":"C is a powerful programming language used for system programming.",
 
+    "contact":"You can contact the support team through the official website.",
+
+    "email":"Please check the official website for contact email.",
+
+    "thanks":"😊 You're welcome!",
+
+    "thank you":"😊 You're welcome! Happy coding!",
+
+    "bye":"👋 Goodbye! Have a great day!",
+
+    "goodbye":"👋 See you soon!",
+
+    "who are you":"I'm an FAQ Chatbot created using HTML, CSS and JavaScript.",
+
+    "what can you do":"I can answer common FAQ questions about internships and programming."
 };
 
-if(dictionary[input]){
-output=dictionary[input];
+function sendMessage(){
+
+    const input=document.getElementById("userInput");
+    const text=input.value.trim();
+
+    if(text===""){
+        return;
+    }
+
+    // User Message
+    const userDiv=document.createElement("div");
+    userDiv.className="user-message";
+    userDiv.innerText=text;
+    chatBox.appendChild(userDiv);
+
+    // Bot Reply
+    const botDiv=document.createElement("div");
+    botDiv.className="bot-message";
+
+    const key=text.toLowerCase();
+
+    if(responses[key]){
+        botDiv.innerText=responses[key];
+    }
+    else{
+        botDiv.innerText="🤖 Sorry, I don't have an answer for that question. Please try another FAQ.";
+    }
+
+    setTimeout(()=>{
+        chatBox.appendChild(botDiv);
+        chatBox.scrollTop=chatBox.scrollHeight;
+    },500);
+
+    input.value="";
 }
 
-document.getElementById("outputText").value=output;
+function handleKey(event){
+
+    if(event.key==="Enter"){
+        sendMessage();
+    }
+
+}
+
+function clearChat(){
+
+    chatBox.innerHTML=`
+    <div class="bot-message">
+        👋 Hello! I'm your FAQ Bot.<br><br>
+        Ask me anything about the internship.
+    </div>
+    `;
 
 }
